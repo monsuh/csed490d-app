@@ -3,8 +3,11 @@ package com.example.termproject
 import android.app.Application
 
 class Application: Application() {
-    val context = this
-    val appContainer = object : AppContainer() {
-        override val application: Application = context
+
+    lateinit var appContainer : AppContainer
+
+    override fun onCreate() {
+        super.onCreate()
+        appContainer = AppContainer(this)
     }
 }

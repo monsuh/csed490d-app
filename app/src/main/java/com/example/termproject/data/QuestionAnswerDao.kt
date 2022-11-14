@@ -4,14 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface QuestionAnswerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertQuestion(vararg questions: QuestionAnswer)
+    suspend fun insertQuestionAnswer(vararg questions: QuestionAnswer)
 
+    // Observable query
     @Query("SELECT * FROM questionAnswers")
-    fun getAllQuestionAnswers(): List<QuestionAnswer>
+    fun getAllQuestionAnswers(): Flow<List<QuestionAnswer>>
 
     @Query("SELECT question FROM questionAnswers")
     fun getAllQuestions(): List<String>

@@ -5,9 +5,7 @@ import android.app.Application
 import com.example.termproject.data.AppDatabase
 import com.example.termproject.data.QuestionAnswerRepo
 
-public abstract class AppContainer {
-
-    public abstract val application: Application
+public class AppContainer(application: Application) {
 
     private val db = Room.databaseBuilder(application, AppDatabase::class.java, "app-db").build()
     private val qaDao = db.questionAnswerDao()

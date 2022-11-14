@@ -1,13 +1,13 @@
 package com.example.termproject.data
 
-import com.example.termproject.data.QuestionAnswerDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
-class QuestionActivityRepo(
+class QuestionAnswerRepo(
     private val qaDao : QuestionAnswerDao
 ){
-    fun fetchQuestionsAndAnswers() : List<QuestionAnswer> {
-        return qaDao.getAllQuestionAnswers()
-    }
+    val allQuestionsAndAnswers : Flow<List<QuestionAnswer>> = qaDao.getAllQuestionAnswers()
 
     fun fetchQuestions(): List<String> {
         return qaDao.getAllQuestions()
@@ -19,6 +19,12 @@ class QuestionActivityRepo(
             return answerQuery[0]
         } else {
             throw Exception("Question does not exist in db")
+        }
+    }
+
+    suspend fun insertQuestionAnswer(qa : QuestionAnswer) {
+        withContext(Dispatchers.Default) {
+            qaDao.insertQuestionAnswer(qa)
         }
     }
 }
