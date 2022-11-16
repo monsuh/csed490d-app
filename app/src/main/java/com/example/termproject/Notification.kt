@@ -10,14 +10,14 @@ import androidx.core.content.ContextCompat.getSystemService
 
 // Deals with random notification things for timetrack service
 object TimeTrackNotification {
-    val timeTrackChannelId = "timeTrackStatus"
-    private val timeTrackChannelName = "Time Tracker Status"
-    private val timeTrackChannelDesc = "Status message for time tracker"
-    val timeTrackNotificationId = 1
+    const val timeTrackChannelId = "timeTrackStatus"
+    private const val timeTrackChannelName = "Time Tracker Status"
+    private const val timeTrackChannelDesc = "Status message for time tracker"
+    const val timeTrackNotificationId = 1
 
-    fun makeTimeTrackNotificationChannel(notificationManager: NotificationManager, context : Context) {
+    fun makeTimeTrackNotificationChannel(notificationManager: NotificationManager) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val mChannel = NotificationChannel(timeTrackChannelId, timeTrackChannelName, NotificationManager.IMPORTANCE_LOW)
+            val mChannel = NotificationChannel(timeTrackChannelId, timeTrackChannelName, NotificationManager.IMPORTANCE_DEFAULT)
             mChannel.description = timeTrackChannelDesc
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
