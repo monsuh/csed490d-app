@@ -1,8 +1,11 @@
 package com.example.termproject.data
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+
+class NoQuestionException : Exception()
 
 class QuestionAnswerRepo(
     private val qaDao : QuestionAnswerDao
@@ -11,6 +14,16 @@ class QuestionAnswerRepo(
 
     fun fetchQuestions(): List<String> {
         return qaDao.getAllQuestions()
+    }
+
+    fun fetchRandomQuestion() : String {
+        val numQuestions = qaDao.getNumQuestions()
+        Log.d("activity tracker popup", "number of questions: $numQuestions")
+        if (numQuestions > 0) {
+            val randomNum = (0 until numQuestions).random()
+            return qaDao.getQuestionAtIndex(randomNum)
+        }
+        throw NoQuestionException()
     }
 
     fun fetchAnswer(question : String): String {

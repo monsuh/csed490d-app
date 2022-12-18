@@ -18,6 +18,13 @@ interface QuestionAnswerDao {
     @Query("SELECT question FROM questionAnswers")
     fun getAllQuestions(): List<String>
 
+    @Query("SELECT COUNT(*) FROM questionAnswers")
+    fun getNumQuestions(): Int
+
+    @Query("SELECT question FROM questionAnswers LIMIT 1 OFFSET :idx")
+    fun getQuestionAtIndex(idx : Int): String
+
     @Query("SELECT answer FROM questionAnswers WHERE question = :reqQuestion")
     fun getAnswer(reqQuestion: String): List<String>
+
 }
